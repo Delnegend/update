@@ -1,0 +1,7 @@
+Advanced Renamer = C:\path\to\Advanced Renamer\arenc.exe
+Everything = C:\path\to\Everything\Everything.exe
+HandBrake = C:\path\to\HandBrake\HandBrake.exe
+madVR = C:\path\to\madVR\changelog.txt
+Revo Uninstaller = C:\path\to\Revo Uninstaller\x64\RevoUnPro.exe
+Photoshop = C:\path\to\Adobe Photoshop 2025\Photoshop.exe
+NvidiaICAT = C:\path\to\nividia-icat\ICAT.exe
