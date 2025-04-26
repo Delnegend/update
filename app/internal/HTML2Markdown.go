@@ -39,7 +39,7 @@ func HTML2Markdown(getExec func() (string, error)) CheckResult {
 	directURL := utils.ToGitHubDirectURL(
 		"JohannesKaufmann/html-to-markdown",
 		latestTag,
-		"https://github.com/JohannesKaufmann/html-to-markdown/releases/download/v2.3.1/html-to-markdown_Windows_x86_64.zip",
+		"html-to-markdown_Windows_x86_64.zip",
 	)
 
 	return CheckResult{
