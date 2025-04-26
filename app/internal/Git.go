@@ -26,7 +26,7 @@ func Git(getExec func() (string, error)) CheckResult {
 		if match == nil {
 			return "", fmt.Errorf("unexpected command output")
 		}
-		return strings.TrimSpace(match[1]), nil
+		return strings.TrimSuffix(strings.TrimSpace(match[1]), "."), nil
 	}()
 	if err != nil {
 		return CheckResult{Error: fmt.Errorf("can't get current version: %v", err)}
