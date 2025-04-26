@@ -111,13 +111,15 @@ func InitApps() Apps {
 }
 
 func (a *Apps) CheckApp(appName AppName) CheckResult {
+	appName = strings.ToLower(appName)
+
 	for _, app := range a.Apps {
-		if app.Name == appName {
+		if strings.ToLower(app.Name) == appName {
 			return CheckResult{
 				app.Name,
-				app.rawChecker(func() (string, error) {
+				app.checker(func() (string, error) {
 					if _, err := os.Stat(a.execOverrides[appName]); err == nil {
-						return a.execOverrides[app.Name], nil
+						return a.execOverrides[appName], nil
 					}
 
 					if _, err := exec.LookPath(app.Exec); err == nil {
