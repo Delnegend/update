@@ -7,7 +7,7 @@ import (
 	"update/utils"
 )
 
-var photoshopLatestVerRe = regexp.MustCompile(`The current version of Photoshop 2024 \(desktop\) is.<b>([\d\.]+)<\/b>`)
+var photoshopLatestVerRe = regexp.MustCompile(`The current version of Photoshop.+?\(desktop\) is.<b>([\d\.]+)<\/b>`)
 
 func Photoshop(getExec func() (string, error)) CheckResult {
 	currVer, err := func() (string, error) {
