@@ -3,9 +3,11 @@ package check
 import (
 	"fmt"
 	"os/exec"
-	"strings"
+	"regexp"
 	"update/utils"
 )
+
+var justCurrVerRe = regexp.MustCompile(`([\d\.]+)`)
 
 func Just(getExec func() (string, error)) CheckResult {
 	currVer, err := func() (string, error) {
@@ -18,12 +20,11 @@ func Just(getExec func() (string, error)) CheckResult {
 		if err != nil {
 			return "", err
 		}
-		currVerString := string(currVerBytes)
-		currVerSlice := strings.SplitN(currVerString, " ", 2)
-		if len(currVerSlice) == 2 {
-			return currVerSlice[0], nil
+		match := justCurrVerRe.FindStringSubmatch(string(currVerBytes))
+		if match == nil {
+			return "", fmt.Errorf("unexpected command output")
 		}
-		return "", fmt.Errorf("unexpected command output")
+		return match[1], nil
 	}()
 	if err != nil {
 		return CheckResult{Error: fmt.Errorf("can't get current version: %v", err)}
