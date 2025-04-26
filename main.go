@@ -28,7 +28,7 @@ func main() {
 		wg.Add(1)
 		go func(appName app.AppName) {
 			defer wg.Done()
-			results <- apps.CheckApp(appInfo.Name)
+			results <- apps.CheckApp(appName)
 		}(appInfo.Name)
 	}
 
