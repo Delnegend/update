@@ -88,7 +88,10 @@ func InitApps() Apps {
 
 		file, err := os.Open(updateTxtPath)
 		if err != nil {
-			return acc
+			file, err = os.Open("update.txt")
+			if err != nil {
+				return acc
+			}
 		}
 		defer file.Close()
 
