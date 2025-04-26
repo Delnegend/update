@@ -102,7 +102,7 @@ func InitApps() Apps {
 			if len(parts) != 2 {
 				panic(fmt.Errorf("invalid line in update.txt: %s", line))
 			}
-			acc[AppName(strings.TrimSpace(parts[0]))] = strings.TrimSpace(parts[1])
+			acc[strings.ToLower(strings.TrimSpace(parts[0]))] = strings.TrimSpace(parts[1])
 		}
 		return acc
 	}()
