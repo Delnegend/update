@@ -9,37 +9,14 @@ import (
 	c "update/app/internal"
 )
 
-type AppName string
-
-const (
-	AdvancedRenamer    AppName = "Advanced Renamer"
-	Caddy              AppName = "Caddy"
-	Everything         AppName = "Everything"
-	FirewallAppBlocker AppName = "FirewallAppBlocker"
-	GoCompiler         AppName = "Go"
-	HandBrake          AppName = "HandBrake"
-	HTML2Markdown      AppName = "html2markdown"
-	Just               AppName = "just"
-	Lazygit            AppName = "lazygit"
-	LibJXL             AppName = "libjxl"
-	MadVR              AppName = "madVR"
-	Nrr                AppName = "nrr"
-	NvidiaICAT         AppName = "NvidiaICAT"
-	Onefetch           AppName = "onefetch"
-	Photoshop          AppName = "Photoshop"
-	PlatformTools      AppName = "Platform Tool"
-	Python             AppName = "Python"
-	RevoUninstaller    AppName = "Revo Uninstaller"
-	RsRPC              AppName = "rsRPC"
-	Upx                AppName = "upx"
-)
+type AppName = string
 
 type Checker func() c.CheckResult
 
 type AppInfo struct {
-	Name       AppName
-	Exec       string
-	rawChecker func(func() (string, error)) c.CheckResult
+	Name    AppName
+	Exec    string
+	checker func(func() (string, error)) c.CheckResult
 }
 
 type CheckResult struct {
@@ -48,26 +25,35 @@ type CheckResult struct {
 }
 
 var apps = []AppInfo{
-	{AdvancedRenamer, "arenc", c.AdvancedRenamer},
-	{Caddy, "caddy", c.Caddy},
-	{Everything, "Everything", c.Everything},
-	{FirewallAppBlocker, "Fab_x64", c.FirewallAppBlocker},
-	{GoCompiler, "go", c.GoCompiler},
-	{HandBrake, "HandBrake", c.Handbrake},
-	{HTML2Markdown, "html2markdown", c.HTML2Markdown},
-	{Just, "just", c.Just},
-	{Lazygit, "lazygit", c.Lazygit},
-	{LibJXL, "cjxl", c.LibJXL},
-	{MadVR, "", c.MadVR},
-	{Nrr, "nrr", c.Nrr},
-	{NvidiaICAT, "ICAT", c.NvidiaICAT},
-	{Onefetch, "onefetch", c.Onefetch},
-	{Photoshop, "Photoshop", c.Photoshop},
-	{PlatformTools, "adb", c.PlatformTools},
-	{Python, "python", c.Python},
-	{RevoUninstaller, "RevoUnPro", c.RevoUninstaller},
-	{RsRPC, "rsrpc-cli", c.RsRPC},
-	{Upx, "upx", c.Upx},
+	{"Advanced Renamer", "arenc", c.AdvancedRenamer},
+	{"Caddy", "caddy", c.Caddy},
+	{"EqualizerAPO", "EqualizerAPO", c.EqualizerAPO},
+	{"Everything", "Everything", c.Everything},
+	{"Firewall App Blocker", "Fab_x64", c.FirewallAppBlocker},
+	{"Git", "git", c.Git},
+	{"Go", "go", c.GoCompiler},
+	{"HandBrake", "HandBrake", c.Handbrake},
+	{"html2markdown", "html2markdown", c.HTML2Markdown},
+	{"just", "just", c.Just},
+	{"LAVFilter", "", c.LAVFilter},
+	{"Lazygit", "lazygit", c.Lazygit},
+	{"LibJXL", "cjxl", c.LibJXL},
+	{"madVR", "", c.MadVR},
+	{"NanaZip", "NanaZip", c.NanaZip},
+	{"NeatDM", "NeatDM", c.NeatDM},
+	{"Node", "node", c.Node},
+	{"nrr", "nrr", c.Nrr},
+	{"NvidiaICAT", "ICAT", c.NvidiaICAT},
+	{"Onefetch", "onefetch", c.Onefetch},
+	{"Photoshop", "Photoshop", c.Photoshop},
+	{"Platform Tools", "adb", c.PlatformTools},
+	{"Pnpm", "pnpm", c.Pnpm},
+	{"Python", "python", c.Python},
+	{"Revo Uninstaller", "RevoUnPro", c.RevoUninstaller},
+	{"RsRPC", "rsrpc-cli", c.RsRPC},
+	{"Upx", "upx", c.Upx},
+	{"Volta", "volta", c.Volta},
+	{"ZeroTier", "zerotier-cli", c.ZeroTier},
 }
 
 type Apps struct {
