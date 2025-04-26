@@ -131,5 +131,5 @@ func (a *Apps) CheckApp(appName AppName) CheckResult {
 			}
 		}
 	}
-	panic("app not found")
+	panic(fmt.Sprintf("app not found: %s", appName))
 }
