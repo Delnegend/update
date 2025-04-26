@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 	"update/app"
 )
@@ -36,35 +37,57 @@ func main() {
 		done <- struct{}{}
 	}()
 
-	fmt.Println()
-
 scoped:
 	for {
 		select {
 		case r := <-results:
-			fmt.Printf("%s: ", r.Name)
+			var sb strings.Builder
+
+			sb.WriteString(r.Name + " ")
 			if r.Error != nil {
-				fmt.Printf("%v\n\n", r.Error)
+				sb.WriteString("⛔  " + r.Error.Error())
+				fmt.Println(sb.String())
 				continue
 			}
 			if r.CurrentVersion == "" {
-				fmt.Printf("current version is empty\n\n")
+				sb.WriteString("⚠️  current version is empty")
 				continue
 			}
 			if r.LatestVersion == "" {
-				fmt.Printf("latest version is empty\n\n")
+				sb.WriteString("⚠️  latest version is empty")
+				fmt.Println(sb.String())
 				continue
 			}
+			if r.CurrentVersion > r.LatestVersion {
+				sb.WriteString("❓  installed version is newer")
+				fmt.Println(sb.String())
+				continue
+			}
+
 			if r.CurrentVersion == r.LatestVersion {
-				fmt.Printf("up to date\n\n")
+				sb.WriteString("✔️")
+				fmt.Println(sb.String())
 				continue
 			}
-			fmt.Printf("%s%s -> %s%s\n", YELLOW, r.CurrentVersion, r.LatestVersion, END)
+			sb.WriteString(YELLOW)
+			sb.WriteString(r.CurrentVersion)
+			sb.WriteString(" -> ")
+			sb.WriteString(r.LatestVersion)
+			sb.WriteString(END)
 			if r.DirectURL == "" || !r.DirectURLAlive {
-				fmt.Printf("  - 🏠 %s%s%s%s%s\n\n", BLUE, UNDERLINE, r.DownloadPageURL, END, END)
-				continue
+				sb.WriteString(" 🏠  ")
+				sb.WriteString(BLUE)
+				sb.WriteString(UNDERLINE)
+				sb.WriteString(r.DownloadPageURL)
+			} else {
+				sb.WriteString(" 🔗  ")
+				sb.WriteString(GREEN)
+				sb.WriteString(UNDERLINE)
+				sb.WriteString(r.DirectURL)
 			}
-			fmt.Printf("  - 🔗 %s%s%s%s%s\n\n", GREEN, UNDERLINE, r.DirectURL, END, END)
+			sb.WriteString(END)
+			sb.WriteString(END)
+			fmt.Println(sb.String())
 		case <-done:
 			break scoped
 		}
