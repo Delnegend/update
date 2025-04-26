@@ -41,7 +41,7 @@ func Handbrake(getExec func() (string, error)) CheckResult {
 		return CheckResult{Error: fmt.Errorf("can't get latest version: %v", err)}
 	}
 
-	directURL := fmt.Sprintf("https://handbrake.fr/rotation.php?file=HandBrake-%s-x86_64-Win_GUI.zip", latestVer)
+	directURL := fmt.Sprintf("https://github.com/HandBrake/HandBrake/releases/download/%s/HandBrake-%s-x86_64-Win_GUI.zip", latestVer, latestVer)
 
 	return CheckResult{
 		CurrentVersion:  currVer,
