@@ -36,7 +36,7 @@ func Caddy(getExec func() (string, error)) CheckResult {
 	directURL := utils.ToGitHubDirectURL(
 		"caddyserver/caddy",
 		latestTag,
-		fmt.Sprintf("caddy_%s_windows_arm64.zip", latestVer),
+		fmt.Sprintf("caddy_%s_windows_amd64.zip", latestVer),
 	)
 
 	return CheckResult{
