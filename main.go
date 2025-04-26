@@ -59,7 +59,7 @@ scoped:
 				continue
 			}
 			if r.CurrentVersion > r.LatestVersion {
-				sb.WriteString("❓  installed version is newer")
+				sb.WriteString("❓  installed version " + r.CurrentVersion + " is newer than latest version " + r.LatestVersion)
 				fmt.Println(sb.String())
 				continue
 			}
